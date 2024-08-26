@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentación</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f9f9f9;
+      }
+      button {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Documentación</h1>
+    <button id="expandBtn">Expandir/Contraer</button>
+    <p>
+      Esta es la documentación de la aplicación. Aquí puedes añadir toda la
+      información necesaria para los usuarios.
+    </p>
+
+    <script>
+      let isExpanded = false;
+      const expandBtn = document.getElementById("expandBtn");
+
+      expandBtn.addEventListener("click", () => {
+        isExpanded = !isExpanded;
+        window.parent.postMessage(
+          { type: "expandToggle", isOpen: isExpanded },
+          "*"
+        );
+      });
+
+      window.addEventListener("message", (event) => {
+        if (event.data.type === "toggleDrawer") {
+          console.log("Drawer toggled:", event.data.isOpen);
+        }
+      });
+    </script>
+  </body>
+</html>
